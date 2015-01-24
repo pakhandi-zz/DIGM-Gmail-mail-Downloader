@@ -1,0 +1,9 @@
+('/home/pakhandi/Desktop/MAIL/build/digm/digm',
+ True,
+ False,
+ None,
+ None,
+ [],
+ None,
+ False,
+ 1422112255)
