@@ -59,11 +59,11 @@ def get_mailbox(EMAIL_ACCOUNT, EMAIL_PASS,  M,  EMAIL_FOLDER):
     if rv != 'OK':
         print "No messages found!"
         return
-    if(os.path.exists(EMAIL_FOLDER)):
+    if(os.path.exists("../../MAIL/"+EMAIL_FOLDER)):
         print "Folder Exists"
     else:
-        os.makedirs(EMAIL_FOLDER)
-    detach_dir=EMAIL_FOLDER+"/"
+        os.makedirs("../../MAIL/"+EMAIL_FOLDER)
+    detach_dir="../../MAIL/"+EMAIL_FOLDER+"/"
     att_path1 = os.path.join(detach_dir, EMAIL_FOLDER+".txt")
     fplog = open(att_path1, 'wb')
 
@@ -71,10 +71,10 @@ def get_mailbox(EMAIL_ACCOUNT, EMAIL_PASS,  M,  EMAIL_FOLDER):
     #os.makedirs(EMAIL_FOLDER+"/MAILS")
  
     for num in data[0].split():
-        if(os.path.exists(EMAIL_FOLDER+"/"+EMAIL_FOLDER+num)):
+        if(os.path.exists("../../MAIL/"+EMAIL_FOLDER+"/"+EMAIL_FOLDER+num)):
             print "Folder Exists"
         else:
-            os.makedirs(EMAIL_FOLDER+"/"+EMAIL_FOLDER+num)
+            os.makedirs("../../MAIL/"+EMAIL_FOLDER+"/"+EMAIL_FOLDER+num)
         rv, data = M.fetch(num, '(RFC822)')
         if rv != 'OK':
             print "ERROR getting message", num
@@ -92,7 +92,7 @@ def get_mailbox(EMAIL_ACCOUNT, EMAIL_PASS,  M,  EMAIL_FOLDER):
         decode = email.header.decode_header(msg['Subject'])[0]
         subject = unicode(decode[0])
         filename = EMAIL_FOLDER+num+".txt"
-        detach_dir=EMAIL_FOLDER+"/"+EMAIL_FOLDER+num+"/"
+        detach_dir="../../MAIL/"+EMAIL_FOLDER+"/"+EMAIL_FOLDER+num+"/"
         att_path = os.path.join(detach_dir, filename)
         
         print ("Accessing..")
@@ -163,22 +163,28 @@ def access_mailbox(EMAIL_ACCOUNT, EMAIL_PASS,  M,  EMAIL_FOLDER):
     if rv != 'OK':
         print "No messages found!"
         return
-
-    print("Enter the name of the log file you want to have : ")
-    nm = raw_input()
-
-    att_path1 = os.path.join(detach_dir, nm+".txt")
+    if(os.path.exists("../../UNREAD_MAIL/"+EMAIL_FOLDER)):
+        print "Folder Exists"
+    else:
+        os.makedirs("../../UNREAD_MAIL/"+EMAIL_FOLDER)
+    detach_dir="../../UNREAD_MAIL/"+EMAIL_FOLDER+"/"
+    att_path1 = os.path.join(detach_dir, EMAIL_FOLDER+".txt")
     fplog = open(att_path1, 'wb')
+
+    
+    #os.makedirs(EMAIL_FOLDER+"/MAILS")
  
     for num in data[0].split():
+        if(os.path.exists("../../UNREAD_MAIL/"+EMAIL_FOLDER+"/"+EMAIL_FOLDER+num)):
+            print "Folder Exists"
+        else:
+            os.makedirs("../../UNREAD_MAIL/"+EMAIL_FOLDER+"/"+EMAIL_FOLDER+num)
         rv, data = M.fetch(num, '(RFC822)')
         if rv != 'OK':
             print "ERROR getting message", num
-            major()
             return
         msg = email.message_from_string(data[0][1])
         xyz = msg
-
         body = "OOPS!! No Body"
         if xyz.get_content_maintype() == 'multipart': 
             for part in xyz.walk():       
@@ -187,10 +193,10 @@ def access_mailbox(EMAIL_ACCOUNT, EMAIL_PASS,  M,  EMAIL_FOLDER):
         else:
             for part in xyz.walk():
                 body = part.get_payload(decode=True)
-
         decode = email.header.decode_header(msg['Subject'])[0]
         subject = unicode(decode[0])
-        filename = nm+num+".txt"
+        filename = EMAIL_FOLDER+num+".txt"
+        detach_dir="../../UNREAD_MAIL/"+EMAIL_FOLDER+"/"+EMAIL_FOLDER+num+"/"
         att_path = os.path.join(detach_dir, filename)
         
         print ("Accessing..")
@@ -205,7 +211,8 @@ def access_mailbox(EMAIL_ACCOUNT, EMAIL_PASS,  M,  EMAIL_FOLDER):
         fp.write("\n\nMessage : \n")
         fp.write( body)
 
-        fplog.write("Subject : ")
+        fplog.write("MAIL : "+num)
+        fplog.write("\nSubject : ")
         fplog.write(subject)
         fplog.write("\nDate : ")
         fplog.write( msg['Date'])
@@ -233,7 +240,7 @@ def access_mailbox(EMAIL_ACCOUNT, EMAIL_PASS,  M,  EMAIL_FOLDER):
                 if not filename:
                     filename = 'part-%03d%s' % (counter, 'bin')
                     counter += 1
-
+                #detach_dir=EMAIL_FOLDER+"/"
                 att_path = os.path.join(detach_dir, filename)
                 fp.write(filename)
                 fp.write("\n")
@@ -262,10 +269,10 @@ def main():
     print("#                                                                         #")
     print("#                                                                         #")
     print("#                                                                         #")
-    print("#                   Welcome to the Gmail Handler                          #")
-    print("#                       Asim Krishna Prasad                               #")
-    print("#                          bugecode.com                                   #")
-    print("#                                                                         #")
+    print("#                   Welcome to the DIGM :V-1.0.0                          #")
+    print("#                     By - Asim Krishna Prasad                            #")
+    print("#                    http://github.com/pakhandi                           #")
+    print("#                       http://bugecode.com                               #")
     print("#                                                                         #")
     print("#                                                                         #")
     print("#                                                                         #")
@@ -273,6 +280,7 @@ def main():
     print("###########################################################################")
     print ""
     print ""
+    print("Connecting to Gmail .. .. ")
     M = imaplib.IMAP4_SSL('imap.gmail.com')
 
     try:
@@ -288,12 +296,13 @@ def main():
     major(EMAIL_ACCOUNT,EMAIL_PASS, M)
 
 def major(EMAIL_ACCOUNT, EMAIL_PASS, M):
-
-    print("\n\n\nMENU : ")
+    print("\n\n\n################################")
+    print("MENU : ")
     print("1: Sync Mail-Boxes")
     print("2: Send a Mail")
     print("3: Check Mail-Box")
-    print("4: EXIT\n\n")
+    print("4: EXIT")
+    print("Enter your choice : \n\n")
 
     dec = raw_input()
 
@@ -343,6 +352,10 @@ def major(EMAIL_ACCOUNT, EMAIL_PASS, M):
 
     if dec == '2':
         sendmail(EMAIL_ACCOUNT, EMAIL_PASS, M)
+
+    else:
+        print "Wrong Selection"
+        major(EMAIL_ACCOUNT,EMAIL_PASS, M)
 
 
      
