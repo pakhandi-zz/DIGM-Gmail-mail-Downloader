@@ -11,6 +11,7 @@ It now makes it simple to keep only some specific mails on the system..
 <ul>
 <li>Internet Connection</li>
 <li>IMAP enabled on Gmail</li>
+<li>64-bit LINUX version</li>
 </ul>
 <h3>Installation</h3>
 Download all the files from <a href="https://github.com/pakhandi/DIGM-Gmail-download-manager">here</a> and then run the <b>digm</b> file in <b>dist/digm/</b> folder from terminal, 
