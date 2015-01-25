@@ -23,7 +23,7 @@ For now, a user can do the following things : <br>
 with all the details</li>
 <li>Download all the unread mails of a specific foder and mark them read on Gmail</li>
 <li>Send a mail</li>
-<li>Attachments are also donwloaded for any mail that is getting downloaded</li>
+<li>Attachments are also downloaded for any mail that is getting downloaded</li>
 </ul>
 <h3>Technology Used</h3>
 <ul>
@@ -32,4 +32,6 @@ with all the details</li>
 </ul>
 <h3>Testing</h3>
 The program has been tested on Ubuntu 14.04 Trusty
+<h3>Usage</h3>
+<a href="https://www.youtube.com/watch?v=-GRC1lPiLsc&feature=youtu.be" target="_blank">This is a video</a> showing how to use V-1.0.0
 
