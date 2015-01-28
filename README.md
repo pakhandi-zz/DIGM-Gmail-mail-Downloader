@@ -1,4 +1,4 @@
-# DIGM-Gmail-download-manager
+# DIGM-Gmail-mail-Downloader
 A terminal controlled , Gmail-mail downloader..
 
 The application is designed to be controlled by terminal or cmd (for Linux or Windows)..<br>
@@ -59,6 +59,8 @@ The program has been tested on Windows-8.1 (64-bit)..
 <a href="https://www.youtube.com/watch?v=-GRC1lPiLsc" target="_blank">This is a video</a> showing how to use V-1.0.0
 <h4>For Windows</h4>
 <a href="https://www.youtube.com/watch?v=LiLQfqZVnFU" target="_blank">This is a video</a> showing how to use V-1.0.0
+
 <br>
-For Hugs & Bugs, drop a mail at <b>asimkprasad@gmail.com</b>
+
+<span>For Hugs & Bugs, drop a mail at <b>asimkprasad@gmail.com</b></span>
 
